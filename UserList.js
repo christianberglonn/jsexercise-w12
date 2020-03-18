@@ -7,11 +7,17 @@ class UserList {
         users.forEach((user) => {
             this.users.push(new User(user));
         });
+        this.page = $('#page');
     }
 
     render() {
         this.users.forEach((user) => {
-            this.element.append(user.render());
+            let listItem = $('<li>' + user.username + '</li>');
+            listItem.click(() => {
+                this.page.children().eq(1).remove();
+                this.page.append(user.render());
+            });
+            this.element.append(listItem);
         });
         return this.element;
     }

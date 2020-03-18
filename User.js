@@ -1,23 +1,45 @@
+const entrypoint = 'https://jsonplaceholder.typicode.com';
+
 class User {
     constructor(props) {
-        this.id = props.id;
-        this.name = props.name;
-        this.username = props.username;
-        this.email = props.email;
-        this.address = props.address;
+        Object.assign(this, props);
+        this.getPosts();
     }
 
     getPosts() {
         $.ajax({
             url: entrypoint + '/posts?userId=' + this.id
         }).done((res) => {
-            console.log(res);
+            this.posts = res;
         });
     }
 
+    renderPosts() {
+        console.log("Hej! :D");
+    }
+
     render() {
-        let listItem = $('<li>' + this.name + '</li>');
-        return listItem;
+
+        /*         let html = '<div class="userProfile">' +
+                    '<h1>Name:</h1>' + this.name + '<br>' +
+                    'Email:' + this.email + '<br>' +
+                    '</div>'; */
+
+        let userProfile = $(`
+        <div class="userProfile">
+            <h1>Name: ${this.username}</h1>
+            <h3>Email: ${this.email}</h3> <br>
+            <button>Display Posts</button>
+        </div>
+            `);
+
+        userProfile.on('click', '.renderPosts', () => {
+            this.renderPosts();
+        });
+
+        return userProfile;
+
+
     }
 }
 

@@ -13,8 +13,4 @@ $(document).ready(() => {
         userList = new UserList(res);
         page.append(userList.render());
     });
-
-    $('#page').on('click', '#userList li', (event) => {
-        let userId = $(event.target).data("userId");
-    });
 });
